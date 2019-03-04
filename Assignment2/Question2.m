@@ -5,6 +5,7 @@
 % Question 2
 clc;
 clear all;
+close all;
 
 fprintf('ECE 485: Data Analysis and Pattern Recognition\n');
 fprintf('Author: Noah Rondeau\n');
@@ -35,13 +36,6 @@ for i=1:3
     %calculate PDF at points within the x,y domain
     PDF1 = mvnpdf([X1(:) X2(:)], mu', SIGMA1);
     PDF1 = reshape(PDF1, size(X1));
-    % calculate the value of the 1, 2, nd 3 sigma levels using mvnpdf
-    % just use points at (x1 = mu(1) + n*sigma, x2 = mu(2))
-    % all points of the same contour height will satisfy the ellipsoids
-    one_sigma       = [(mu(1) +   sigma1), mu(2)];
-    two_sigma       = [(mu(1) + 2*sigma1), mu(2)];
-    three_sigma     = [(mu(1) + 3*sigma1), mu(2)];
-    levels = sort(mvnpdf([one_sigma;two_sigma;three_sigma], mu', SIGMA1));
     
     % get eigenvectors and values of the covariance matrix
     [V1, D1] = eig(SIGMA1);
@@ -55,7 +49,12 @@ for i=1:3
     figure(i);
     scatter(Data1(:,1), Data1(:,2), '+');
     hold on;
-    contour(X1,X2,PDF1, levels, '-r');
+    %contour(X1,X2,PDF1, levels, '-r');
+    Q2_PlotEllipse(mu, SIGMA1, 1, 'r');
+    hold on;
+    Q2_PlotEllipse(mu, SIGMA1, 2, 'r');
+    hold on;
+    Q2_PlotEllipse(mu, SIGMA1, 3, 'r');
     hold on;
     line(x1, eigenline1, 'Color', 'g');
     hold on;
