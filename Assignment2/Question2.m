@@ -24,49 +24,23 @@ rho = [-0.8 0.2 0.9];
 
 for i=1:3
     
-    x1 = (mu(1)-10):0.01:(mu(1)+10);
-    x2 = (mu(2)-10):0.01:(mu(2)+10);
-    [X1, X2] = meshgrid(x1,x2);
-    
     fprintf('Data set %i: mean = [5, 5]^T, N = 1000, rho = %d\n\n', i,rho(i));
     %calculate covariance matrix
-    SIGMA1 = Q2_CovFrom(sigma1, sigma2, rho(i));
+    Sigma = Q2_CovFrom(sigma1, sigma2, rho(i));
     %generate random data from distribution
-    Data1 = Q2_RandomGenerate(N, mu, SIGMA1);
-    %calculate PDF at points within the x,y domain
-    PDF1 = mvnpdf([X1(:) X2(:)], mu', SIGMA1);
-    PDF1 = reshape(PDF1, size(X1));
-    
-    % get eigenvectors and values of the covariance matrix
-    [V1, D1] = eig(SIGMA1);
-    % these are vectors centered at origin
-    % convert them to lines through mu
-    slope1 = V1(2,1)/V1(1,1);
-    slope2 = V1(2,2)/V1(1,2);
-    eigenline1 = slope1*(x1 - mu(1)) + mu(2);
-    eigenline2 = slope2*(x1 - mu(1)) + mu(2);
+    Data1 = Q2_RandomGenerate(N, mu, Sigma);
     
     figure(i);
+    hold on;
     scatter(Data1(:,1), Data1(:,2), '+');
-    hold on;
-    %contour(X1,X2,PDF1, levels, '-r');
-    Q2_PlotEllipse(mu, SIGMA1, 1, 'r');
-    hold on;
-    Q2_PlotEllipse(mu, SIGMA1, 2, 'r');
-    hold on;
-    Q2_PlotEllipse(mu, SIGMA1, 3, 'r');
-    hold on;
-    line(x1, eigenline1, 'Color', 'g');
-    hold on;
-    line(x1, eigenline2, 'Color', 'g');
-    hold on;
+    Q2_PlotEllipse(mu, Sigma, 1);
+    Q2_PlotEllipse(mu, Sigma, 2);
+    Q2_PlotEllipse(mu, Sigma, 3);
+    Q2_PlotEigen(mu, Sigma, 1);
     t = sprintf('Data-Set %d: mu = [5, 5]^T, N = 1000, rho = %f', i, rho(i));
     title(t);
     xlabel('x_1');
     ylabel('x_2');
-    ax = gca;
-    ax.XLim = [x1(1) x1(end)];
-    ax.YLim = [x2(1) x2(end)];
     axis equal;
     grid on;
     hold off;
