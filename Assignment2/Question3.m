@@ -134,20 +134,20 @@ hold on;
 scatter(class1(:,1), class1(:,2), '+b');
 scatter(class2(:,1), class2(:,2), 'om');
 scatter(class3(:,1), class3(:,2), 'xy');
-scatter(X(:,1), X(:,2), '^k');
+scatter(X(:,1), X(:,2), '^k', 'HandleVisibility', 'off');
 text(X(:,1) + 0.5, X(:,2) + 0.2, data_labels);
-Q2_PlotEllipse(mu1, Sigma1, 1);
-Q2_PlotEllipse(mu1, Sigma1, 2);
-Q2_PlotEllipse(mu1, Sigma1, 3);
-Q2_PlotEllipse(mu2, Sigma2, 1);
-Q2_PlotEllipse(mu2, Sigma2, 2);
-Q2_PlotEllipse(mu2, Sigma2, 3);
-Q2_PlotEllipse(mu3, Sigma3, 1);
-Q2_PlotEllipse(mu3, Sigma3, 2);
-Q2_PlotEllipse(mu3, Sigma3, 3);
-Q2_PlotEigen(mu1, Sigma1, 1);
-Q2_PlotEigen(mu2, Sigma2, 1);
-Q2_PlotEigen(mu3, Sigma3, 1);
+Q2_PlotEllipse(mu1, Sigma1, 1, 'on');
+Q2_PlotEllipse(mu1, Sigma1, 2, 'off');
+Q2_PlotEllipse(mu1, Sigma1, 3, 'off');
+Q2_PlotEllipse(mu2, Sigma2, 1, 'off');
+Q2_PlotEllipse(mu2, Sigma2, 2, 'off');
+Q2_PlotEllipse(mu2, Sigma2, 3, 'off');
+Q2_PlotEllipse(mu3, Sigma3, 1, 'off');
+Q2_PlotEllipse(mu3, Sigma3, 2, 'off');
+Q2_PlotEllipse(mu3, Sigma3, 3, 'off');
+Q2_PlotEigen(mu1, Sigma1, 1, 'on', 'off');
+Q2_PlotEigen(mu2, Sigma2, 1, 'off', 'off');
+Q2_PlotEigen(mu3, Sigma3, 1, 'off', 'off');
 
 axis equal;
 grid on;
@@ -179,18 +179,12 @@ contour(X1, X2, bound12, [0 0], '-k', 'LineWidth', 1);
 contour(X1, X2, bound13, [0 0], ':k', 'LineWidth', 1);
 contour(X1, X2, bound23, [0 0], '--k', 'LineWidth', 1);
 
-title('Class 1,2,3 Data with 1,2,3-\sigma contours, eigenvectors, and decision boundaries');
+title({'Data with 1,2,3-\sigma contours,','eigenvectors, and decision boundaries'});
 xlabel('x_1');
 ylabel('x_2');
+
 legend('Class1', 'Class2', 'Class3', ...
-       '1-\sigma','2-\sigma', '3-\sigma', ...
-       '1-\sigma','2-\sigma', '3-\sigma', ...
-       '1-\sigma','2-\sigma', '3-\sigma', ...
-       'Eigenvectors', ...
-       'Eigenvectors', ...
-       'Eigenvectors', ...
-       'Eigenvectors', ...
-       'Eigenvectors', ...
+       '1,2,3-\sigma ellipses',...
        'Eigenvectors', ...
        'Decision bound 1-2', ...
        'Decision bound 1-3', ...

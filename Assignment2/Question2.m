@@ -33,10 +33,10 @@ for i=1:3
     figure(i);
     hold on;
     scatter(Data1(:,1), Data1(:,2), '+');
-    Q2_PlotEllipse(mu, Sigma, 1);
-    Q2_PlotEllipse(mu, Sigma, 2);
-    Q2_PlotEllipse(mu, Sigma, 3);
-    Q2_PlotEigen(mu, Sigma, 1);
+    Q2_PlotEllipse(mu, Sigma, 1, 'on');
+    Q2_PlotEllipse(mu, Sigma, 2, 'on');
+    Q2_PlotEllipse(mu, Sigma, 3, 'on');
+    Q2_PlotEigen(mu, Sigma, 1, 'off', 'off');
     t = sprintf('Data-Set %d: mu = [5, 5]^T, N = 1000, rho = %f', i, rho(i));
     title(t);
     xlabel('x_1');
